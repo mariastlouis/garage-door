@@ -12,14 +12,31 @@
     </header>
     <section class = "items">
         <article>
-         
             <h2> What's in your garage? </h2>
             <div class = "totals">
               <h3> Total items: <span class ="item-total"> </span>
+              <div class = "cleanliness-totals">
+                <p> total by type </p>
+                <ul class = "clean-totals">
+                </ul>
+              </div>
+
             </div>
         </article>
       <div class = "item-list">
       </div>
+    </section>
+    <section class = "add-item-section">
+      <input class = "item-input" type = "text" placeholder ="item name" />
+      <input class = "linger-input" type = "text" placeholder ="Why is the item still lingering" />
+      
+      <select class = "clean-select" onchange ="selectClean(event.target.value)">
+        <option class ='clean-rating' value ='Sparkling'> Sparkling </option>
+         <option class ='clean-rating' value ='Dusty'> Dusty </option>
+          <option class ='clean-rating' value ='Rancid'> Rancid </option>
+      </select>
+
+      <button class = "submit-btn"> Submit </button>
     </section>
   <script src = 'js/jquery.min.js'></script>
   <script src = 'js/script.js'></script>

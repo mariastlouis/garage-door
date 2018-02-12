@@ -29,12 +29,61 @@ const appendItems = (items) => {
 const getTotals = () => {
   setTimeout (() => {
     $('.item-total').append(itemArray.length)
-
-
+  cleanTotals()
   }, 800)
 
 }
 
+const cleanTotals = () => {
+  let cleanObject = itemArray.reduce((total, itemObj) => {
+    if(!total[itemObj.cleanliness]) {
+      total[itemObj.cleanliness] = 0;
+    }
+    total[itemObj.cleanliness] ++
+  return total
+  }, {})
+  appendCleanTotal(cleanObject)
+}
 
-// $('.more-btn').on('click', getInfo)
+const appendCleanTotal =(cleanObject) => {
+  $('.clean-totals').html('');
+  const cleanKeys = Object.keys(cleanObject)
+  cleanKeys.forEach(item => {
+    $('.clean-totals').append(`
+      <li>${[item]}: ${cleanObject[item]}</li> 
+    `)
+  })
+}
+
+const selectClean = (event) => {
+
+}
+
+const postItem = async () => {
+  const newProjectName = $('.item-input').val()
+  const lingerInput = $('.linger-input').val()
+  const cleanlinessInput =$('.clean-select').val()
+  
+  const postObject = {
+    name: newProjectName,
+    reason: lingerInput,
+    cleanliness: cleanlinessInput
+  }
+
+  const saveItem = await fetch('api/v1/items', {
+    method: 'POST',
+    headers: {
+      'CONTENT-TYPE': 'application/json'
+    },
+    body: JSON.stringify(postObject)
+  })
+
+  itemArray.push(postObject)
+
+  getItems()
+  getTotals()
+  
+}
+
+$('.submit-btn').on('click', postItem)
 

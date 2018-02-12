@@ -93,6 +93,17 @@ const toggleGarage = () => {
   console.log('toggling')
 }
 
+const sortItems = () => {
+  let sortStuff = itemArray.sort(function(a,b) {
+    if (a.name < b.name) return -1;
+    if(a.name > b.name) return 1;
+    return 0;
+  })
+  itemArray = sortStuff;
+  appendItems(itemArray)
+}
+
 $('.submit-btn').on('click', postItem)
 $('.garage-open').on('click', toggleGarage)
+$('.sort-btn').on('click', sortItems)
 

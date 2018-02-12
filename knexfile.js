@@ -12,6 +12,16 @@ module.exports = {
       directory: './db/seeds/dev'
     },
    usNullAsDefault:true
-}
-
+},
+test: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL || 'postgres://localhost/teststuff',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds:{
+      directory:'./db/seeds/test'
+    },
+    useNullAsDefault: true
+  }
 };

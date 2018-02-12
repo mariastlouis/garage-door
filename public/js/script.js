@@ -82,6 +82,10 @@ const postItem = async () => {
 
   getItems()
   getTotals()
+
+  $('.item-input').val('')
+  $('.linger-input').val('')
+  $('.clean-select').val('Sparkling')
   
 }
 

@@ -20,4 +20,32 @@ app.get('/', (request, response) => {
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
+});
+
+app.get('/api/v1/items', (request, response) => {
+  database('stuff').select()
+  .then((stuff) => {
+    response.status(200).json({stuff})
+  })
+  .catch((error) => {
+    response.status(500).json({error})
+  })
+})
+
+app.post('/api/v1/items', (request, response) => {
+  const stuff = request.body
+  for(let requiredParameter of ['name', 'reason', 'cleanliness']){
+    if(!stuff[requiredParameter]){
+      return response.status(422).json({
+        error: `You are missing the required parameter ${requiredParameter}`
+      })
+    }
+  }
+  database('stuff').insert(stuff, 'id')
+  .then(stuff => {
+    return response.status(201).json({id: stuff[0]})
+  })
+  .catch(error => {
+    return response.status(500).json({error})
+  })
 })

@@ -32,6 +32,22 @@ app.get('/api/v1/items', (request, response) => {
   })
 })
 
+app.get('/api/v1/items/:id', (request, response) => {
+  database('stuff').where('id', request.params.id).select()
+  .then(stuff=> {
+    if(stuff.length) {
+      return response.status(200).json({stuff})
+    } else {
+      response.status(404).json({
+        error:`Cound not find item with the id of ${request.params.id}`
+      })
+    }
+  })
+  .catch(error => {
+    return response.status(500).json({error})
+  })
+})
+
 app.post('/api/v1/items', (request, response) => {
   const stuff = request.body
   for(let requiredParameter of ['name', 'reason', 'cleanliness']){

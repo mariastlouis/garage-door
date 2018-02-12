@@ -1,5 +1,8 @@
 exports.seed = function(knex, Promise) {
   return knex('stuff').del()
+    // .then(() => {
+    //   return knex.raw('ALTER TABLE stuff AUTO_INCREMENT = 1')
+    // })
     .then(function () {
       return Promise.all([
         knex('stuff').insert([

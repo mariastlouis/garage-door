@@ -22,6 +22,8 @@ app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 });
 
+
+
 app.get('/api/v1/items', (request, response) => {
   database('stuff').select()
   .then((stuff) => {
@@ -83,3 +85,5 @@ app.patch('/api/v1/items/:id', (request, response) => {
     response.status(500).json({error})
   })
 })
+
+module.exports = app;

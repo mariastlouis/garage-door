@@ -49,3 +49,21 @@ app.post('/api/v1/items', (request, response) => {
     return response.status(500).json({error})
   })
 })
+
+
+
+app.patch('/api/v1/items/:id', (request, response) => {
+  database('stuff').where('id', request.params.id).update(request.body, '')
+  .then(update => {
+    if(!update) {
+      return response.sendStatus(404).json({
+        error: 'Could not update stuff'
+      })
+    } else {
+      response.sendStatus(202)
+    }
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
+})

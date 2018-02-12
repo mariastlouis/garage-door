@@ -89,5 +89,10 @@ const postItem = async () => {
   
 }
 
+const toggleGarage = () => {
+  console.log('toggling')
+}
+
 $('.submit-btn').on('click', postItem)
+$('.garage-open').on('click', toggleGarage)
 

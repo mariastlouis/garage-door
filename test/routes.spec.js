@@ -106,6 +106,7 @@ describe('POST /api/v1/items', () => {
       throw error;
     })
   })
+  
   it('should throw an error if required parameters are not included', () => {
     return chai.request(server)
     .post('/api/v1/items')
@@ -116,6 +117,35 @@ describe('POST /api/v1/items', () => {
     .catch (error => {
       error.should.have.status(422)
     })
+
+  })
+})
+
+describe('PATCH /api/v1/items', () => {
+  it('should be able to patch the cleanliness of an item', () => {
+    return chai.request(server)
+    .patch('/api/v1/items/4')
+    .send({
+      cleanliness: 'Dusty'
+    })
+    .then(response => {
+      response.should.have.status(202);
+    })
+    .catch(error => {
+      throw error
+    })
+  })
+  it('should thrown an error if the item id is not found', () => {
+    return chai.request(server)
+    .patch('/api/v1/items/99999')
+    .send({
+      cleanliness: 'Dusty'
+    })
+    .then(response => { })
+    .catch (error => {
+      error.should.have.status(404)
+    })
+
 
   })
 })

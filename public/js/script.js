@@ -16,8 +16,10 @@ const appendItems = (items) => {
   $('.item-list').html('');
   const newItemList = items.forEach(item => {
     $('.item-list').append(`
-      <article class = "item" id = ${item.id}>
-        <h3> ${item.name} </h3>
+      <article class = "item-card" id = ${item.id}>
+         <div class = "item-card-head">
+         <h3> ${item.name} </h3>
+         </div>
         <p>Reason it lingers: ${item.reason} </p>
         <p>Cleanliness: ${item.cleanliness} </p>
       </article>
@@ -114,5 +116,6 @@ const openGarage = () => {
 $('.submit-btn').on('click', postItem)
 $('.sort-btn').on('click', sortItems)
 $('.garage-door').on('click', openGarage)
-$('.more').on('click', fetchItem)
+
+
 

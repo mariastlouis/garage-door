@@ -7,8 +7,62 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
   </head>
   <body>
-    <h1> Garage door goodbye </h1>
+    <header>
+      <h1> Garage door </h1>
+    </header>
 
+       <section class = "add-item-section">
+      <h3> Add items to your garage </h3>
+      <input class = "item-input" type = "text" placeholder ="item name" />
+      <input class = "linger-input" type = "text" placeholder ="Why is the item still lingering" />
+      
+      <select class = "clean-select" onchange ="selectClean(event.target.value)">
+        <option class ='clean-rating' value ='Sparkling'> Sparkling </option>
+         <option class ='clean-rating' value ='Dusty'> Dusty </option>
+          <option class ='clean-rating' value ='Rancid'> Rancid </option>
+      </select>
+
+           <button class = "submit-btn"> Submit </button>
+    </section>
+    <section class = "items">
+        <article>
+            <h2> What's in your garage? </h2>
+            <div class = "totals">
+              <div class ="total-items total">
+              <h3> Total items: <span class ="item-total"> </span>
+              </h3>
+            </div>
+              <div class = "cleanliness-totals total">
+                <p> Total by type </p>
+                <ul class = "clean-totals">
+                </ul>
+              </div>
+
+            </div>
+            <div class="sort">
+              <button class="sort-btn"> Sort </button>
+            </div>
+        </article>
+        <div class ="garage-door">
+        <div class = "garage-door-wrapper">
+          <div class ="door door-left">
+            <h3> Click to open &nbsp;</h3>
+
+          </div>
+          <div class = "item-list">
+            
+          </div>
+          
+          <div class = "door door-right">
+            <h3> garage door </h3>
+          </div>
+        </div>
+      </div>
+
+    </section>
+ 
+
+ 
   <script src = 'js/jquery.min.js'></script>
   <script src = 'js/script.js'></script>
   </body>

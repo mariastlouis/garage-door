@@ -22,31 +22,17 @@
 
 }
 
-input[type=checkbox]{
-  cursor: pointer;
-  height: 100%;
-  opacity:0;
-  position: absolute;
-  width: 100%;
-  z-index: 100;
-}
-
-input[type=checkbox]:checked ~ div.door-left {
-  transform: translateX(0);
-}
-
-input[type=checkbox]:checked ~ div.door-right {
-  transform: translateX(0);
-}
 
 .door-left {
-  transform: translateX(-100%);
+  /*transform: translateX(-100%);*/
+  transform: translateX(0);
   display: flex;
   justify-content: flex-end
 }
 
 .door-right {
-  transform: translateX(100%);
+  transform: translateX(0);
+  /*transform: translateX(100%);*/
   display: flex;
   justify-content: flex-start;
 }

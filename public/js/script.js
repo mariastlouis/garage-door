@@ -18,9 +18,8 @@ const appendItems = (items) => {
     $('.item-list').append(`
       <article class = "item" id = ${item.id}>
         <h3> ${item.name} </h3>
-        <button class = "more-btn"> More </button>
-        <div class = "more-info" id=${item.id}>
-        </div>
+        <p>Reason it lingers: ${item.reason} </p>
+        <p>Cleanliness: ${item.cleanliness} </p>
       </article>
     `)
   })
@@ -103,7 +102,17 @@ const sortItems = () => {
   appendItems(itemArray)
 }
 
+const fetchItem = () => {
+  console.log('fetching')
+}
+
+const openGarage = () => {
+  $('.door-left').css({"transform":"translateX(-100%)"})
+  $('.door-right').css({"transform":"translateX(100%)"})
+}
+
 $('.submit-btn').on('click', postItem)
-$('.garage-open').on('click', toggleGarage)
 $('.sort-btn').on('click', sortItems)
+$('.garage-door').on('click', openGarage)
+$('.more').on('click', fetchItem)
 

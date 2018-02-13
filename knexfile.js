@@ -30,6 +30,9 @@ test: {
     migrations: {
       directory: './db/migrations'
     },
+    seeds:{
+      directory:'./db/seeds/test'
+    },
     useNullAsDefault: true
   }
 };

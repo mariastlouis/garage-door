@@ -14,6 +14,7 @@ const getItems = async () => {
 
 const appendItems = (items) => {
   $('.item-list').html('');
+  if(items) {
   const newItemList = items.forEach(item => {
     $('.item-list').append(`
       <article class = "item-card" id = ${item.id}>
@@ -25,12 +26,17 @@ const appendItems = (items) => {
       </article>
     `)
   })
+  }
 }
 
 const getTotals = () => {
   setTimeout (() => {
+    if(itemArray.length) {
     $('.item-total').append(itemArray.length)
-  cleanTotals()
+    cleanTotals()
+    }
+
+
   }, 800)
 
 }

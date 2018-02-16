@@ -1,8 +1,8 @@
 exports.seed = function(knex, Promise) {
   return knex('stuff').del()
-    // .then(() => {
-    //   return knex.raw('ALTER TABLE stuff AUTO_INCREMENT = 1')
-    // })
+     .then( function () {
+      return knex.raw('ALTER SEQUENCE stuff.id_seq RESTART WITH 1');
+    })
     .then(function () {
       return Promise.all([
         knex('stuff').insert([
@@ -12,6 +12,6 @@ exports.seed = function(knex, Promise) {
         ])
         .then(() => console.log('Seeding complete'))
         .catch(error => console.log(`Error seeding data: ${error}`))
-      ])
+      ]);
     });
 };

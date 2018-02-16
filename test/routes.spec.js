@@ -25,9 +25,9 @@ describe('Client Routes', () => {
     return chai.request(server)
       .get('/noRoute')
       .then(() => { })
-    .catch(error => {
-        error.should.have.status(404);
-      });
+      .catch(error => {
+        error.should.have.status(404)
+      })
   });
 });
 
@@ -35,8 +35,8 @@ describe('API Routes', () => {
    beforeEach((done) => {
     knex.seed.run()
     .then(() => {
-      done()
-    })
+      done();
+    });
   });
 
 
@@ -45,18 +45,18 @@ describe('API Routes', () => {
       return chai.request(server)
       .get('/api/v1/items')
       .then(response => {
-        response.should.have.status(200)
+        response.should.have.status(200);
         response.should.be.json;
         response.body.stuff[0].should.have.property('id');
-        response.body.stuff[0].should.have.property('reason')
-        response.body.stuff[0].should.have.property('name')
-        response.body.stuff[0].should.have.property('cleanliness')
+        response.body.stuff[0].should.have.property('reason');
+        response.body.stuff[0].should.have.property('name');
+        response.body.stuff[0].should.have.property('cleanliness');
 
       })
       .catch(error => {
         throw error;
-      })
-    })
+      });
+    });
     it('should return an error if path is incorrect', () => {
       return chai.request(server)
       .get('/api/v1/stuff')
@@ -64,20 +64,32 @@ describe('API Routes', () => {
       })
       .catch(error => {
         error.should.have.status(404);
-      })
-    })
-  })
+      });
+    });
+  });
 
   describe('GET /api/v1/items/:id', () => {
     it('should return an item with a specific id', () => {
-      return chai.request(server)
-      .get('/api/v1/items/66')
-      .then(response => {
-        response.should.have.status(200)
+       let itemId;
+       return chai.request(server)
+       .get('/api/v1/items')
+       .then(response => {
+        itemId = response.body.stuff[0].id;
+       })
+      .then(() => {
+        return chai.request(server)
+        .get(`/api/v1/items/${itemId}`)
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.stuff[0].should.have.property('id');
+          response.body.stuff[0].should.have.property('reason');
+          response.body.stuff[0].should.have.property('name');
+          response.body.stuff[0].should.have.property('cleanliness');
+        })      
       })
-      .catch(error => {
-        throw error})
-    })
+  });  
+
 
     it('should return an error if the id is not found', () => {
       return chai.request(server)
@@ -85,6 +97,7 @@ describe('API Routes', () => {
       .then(response => { })
     .catch(error => {
       error.should.have.status(404)
+      error.response.body.error.should.equal('Cound not find item with the id of 9999999')
     })
   })
 })
@@ -97,7 +110,6 @@ describe('POST /api/v1/items', () => {
       name: 'love lost', reason:'jelousy', cleanliness:'Dusty'
     })
     .then(response => {
-      console.log(response.body)
       response.should.have.status(201)
       response.should.be.json;
       response.body.should.have.property('id');
@@ -116,6 +128,7 @@ describe('POST /api/v1/items', () => {
     .then(response => { })
     .catch (error => {
       error.should.have.status(422)
+      error.response.body.error.should.equal('You are missing the required parameter reason')
     })
 
   })
@@ -123,17 +136,28 @@ describe('POST /api/v1/items', () => {
 
 describe('PATCH /api/v1/items', () => {
   it('should be able to patch the cleanliness of an item', () => {
-    return chai.request(server)
-    .patch('/api/v1/items/4')
+   let itemId;
+   return chai.request(server)
+   .get('/api/v1/items')
+   .then(response => {
+    itemId = response.body.stuff[0].id;
+   })
+   .then(() => {
+     return chai.request(server)
+    .patch(`/api/v1/items/${itemId}`)
     .send({
       cleanliness: 'Dusty'
     })
     .then(response => {
       response.should.have.status(202);
+      response.text.should.equal('Accepted')
     })
     .catch(error => {
       throw error
     })
+
+
+   })
   })
   it('should thrown an error if the item id is not found', () => {
     return chai.request(server)
